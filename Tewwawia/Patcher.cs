@@ -34,10 +34,11 @@ namespace me.WildN00b.Tewwawia
         {
             MethodDefinition DedServ = GetMethodDefinition(TerrariaServer, "Terraria.Main", "DedServ", 0);
             ILProcessor il = DedServ.Body.GetILProcessor();
-            Instruction text = Instruction.Create(OpCodes.Ldstr, "Tewwawia"); //8 terraria
-            Instruction text2 = Instruction.Create(OpCodes.Ldstr, "Tewwawia Server ");//Terraria
-            il.Replace(DedServ.Body.Instructions[17], text);
-            il.Replace(DedServ.Body.Instructions[85], text2);
+            
+            Instruction text = Instruction.Create(OpCodes.Ldstr, "Tewwawia - terraria");
+            Instruction text2 = Instruction.Create(OpCodes.Ldstr, "Tewwawia - Terraria Server ");
+            il.Replace(DedServ.Body.Instructions[4], text);
+            il.Replace(DedServ.Body.Instructions[26], text2);
         }
         
         private void Save()
