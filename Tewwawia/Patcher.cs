@@ -4,7 +4,7 @@ using Mono.Cecil.Cil;
 
 namespace me.WildN00b.Tewwawia
 {
-    class Patcher
+    internal class Patcher
     {
         string NewPath;
         AssemblyDefinition TerrariaServer;

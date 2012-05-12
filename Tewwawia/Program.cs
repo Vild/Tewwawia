@@ -4,7 +4,7 @@ using System.IO;
 
 namespace me.WildN00b.Tewwawia
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
