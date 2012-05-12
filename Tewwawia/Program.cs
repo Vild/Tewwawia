@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.IO;
 
-namespace Tewwawia
+namespace me.WildN00b.Tewwawia
 {
     class Program
     {
@@ -15,13 +15,24 @@ namespace Tewwawia
 #endif
         }
 
+        public static string TERRARIASERVER = Environment.CurrentDirectory + "\\TerrariaServer.exe";
+        public static string TERRARIASERVER_PATCHED = Environment.CurrentDirectory + "\\Tewwawia.dat";
         public TextWriter errorWriter = Console.Error;
         public Assembly TerrariaServer;
 
         private int Run(string[] args)
         {
-            if (!Load())
+            if (!File.Exists(TERRARIASERVER))
+            {
+                errorWriter.WriteLine("'TerrariaServer.exe' not found, need to be in the same folder as Tewwawia.exe!");
                 return -1;
+            }
+
+            Patcher patch = new Patcher(TERRARIASERVER, TERRARIASERVER_PATCHED);
+            patch.Patch();
+
+            if (!Load())
+                return -2;
             Console.ForegroundColor = ConsoleColor.Green; // Make terraria 200% cooler
             TerrariaServer.EntryPoint.Invoke(null, new object[] { args });
 
@@ -32,9 +43,7 @@ namespace Tewwawia
         {
             try
             {
-                if (!File.Exists(Environment.CurrentDirectory + "/TerrariaServer.exe"))
-                    throw new FileNotFoundException("'TerrariaServer.exe' not found, need to be in the same folder as Tewwawia.exe!");
-                TerrariaServer = Assembly.LoadFile(Environment.CurrentDirectory + "/TerrariaServer.exe");
+                TerrariaServer = Assembly.LoadFile(TERRARIASERVER_PATCHED);
             }
             catch (Exception e)
             {
