@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tewwawia", "Tewwawia\Tewwawia.csproj", "{5ED1760C-3391-4FD6-A4FE-43DD9BAE2823}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtractIL", "ExtractIL\ExtractIL.csproj", "{0F015056-8B39-473F-8B10-D9AEEDF7BECF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +15,10 @@ Global
 		{5ED1760C-3391-4FD6-A4FE-43DD9BAE2823}.Debug|x86.Build.0 = Debug|x86
 		{5ED1760C-3391-4FD6-A4FE-43DD9BAE2823}.Release|x86.ActiveCfg = Release|x86
 		{5ED1760C-3391-4FD6-A4FE-43DD9BAE2823}.Release|x86.Build.0 = Release|x86
+		{0F015056-8B39-473F-8B10-D9AEEDF7BECF}.Debug|x86.ActiveCfg = Debug|x86
+		{0F015056-8B39-473F-8B10-D9AEEDF7BECF}.Debug|x86.Build.0 = Debug|x86
+		{0F015056-8B39-473F-8B10-D9AEEDF7BECF}.Release|x86.ActiveCfg = Release|x86
+		{0F015056-8B39-473F-8B10-D9AEEDF7BECF}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

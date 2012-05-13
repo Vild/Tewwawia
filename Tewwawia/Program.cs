@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.IO;
+using me.WildN00b.Tewwawia.Plugin_System;
 
 namespace me.WildN00b.Tewwawia
 {
@@ -8,35 +9,48 @@ namespace me.WildN00b.Tewwawia
     {
         static void Main(string[] args)
         {
-            int ret = new Program().Run(args);
+            new Program().Run(args);
 #if DEBUG
-            Console.WriteLine((ret == 0) ? "EVERYTHING IS OKEY!!!" : "THE WORLD IS GOING TO END!!! ret: " + ret);
             Console.ReadLine();
 #endif
         }
 
         public static string TERRARIASERVER = Environment.CurrentDirectory + "\\TerrariaServer.exe";
         public static string TERRARIASERVER_PATCHED = Environment.CurrentDirectory + "\\Tewwawia.dat";
-        public TextWriter errorWriter = Console.Error;
+        public static TextWriter errorWriter = Console.Error;
         public Assembly TerrariaServer;
 
         private int Run(string[] args)
         {
+            Console.ForegroundColor = ConsoleColor.Green; // Make terraria 200% cooler
             if (!File.Exists(TERRARIASERVER))
             {
                 errorWriter.WriteLine("'TerrariaServer.exe' not found, need to be in the same folder as Tewwawia.exe!");
                 return -1;
             }
 
-            Patcher patch = new Patcher(TERRARIASERVER, TERRARIASERVER_PATCHED);
-            patch.Patch();
-
+            Patch();
+            
             if (!Load())
                 return -2;
-            Console.ForegroundColor = ConsoleColor.Green; // Make terraria 200% cooler
+
+            PluginHandler.LoadPlugin(Environment.CurrentDirectory + "\\Tewwawia.exe");
+
             TerrariaServer.EntryPoint.Invoke(null, new object[] { args });
 
+            PluginHandler.UnloadAllPlugin();
             return 0;
+        }
+
+        private static void Patch()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Need to patch.");
+            Patcher patch = new Patcher(TERRARIASERVER, TERRARIASERVER_PATCHED);
+            Console.Write("Pathing...");
+            patch.Patch();
+            Console.WriteLine(" done!");
+            Console.ForegroundColor = ConsoleColor.Green;
         }
 
         private bool Load()
