@@ -88,30 +88,28 @@ namespace me.WildN00b.Tewwawia
         {
             //605
             ILProcessor ServerLoop = GetILProcessorForMethod(TerrariaServer, "Terraria.Netplay", "ServerLoop", 1);
+            ArrayType ServerSock = new ArrayType(TerrariaServer.MainModule.GetType("Terraria.ServerSock").Resolve());
             List<Instruction> args = new List<Instruction>();
-            args.Add(Instruction.Create(OpCodes.Ldc_I4_1));
             args.Add(Instruction.Create(OpCodes.Ldc_I4_2));
             args.Add(Instruction.Create(OpCodes.Newarr, TerrariaServer.MainModule.Import(typeof(System.Object))));
-            args.Add(Instruction.Create(OpCodes.Stloc_0));
-            args.Add(Instruction.Create(OpCodes.Ldloc_0));
+            args.Add(Instruction.Create(OpCodes.Stloc_1));
+            args.Add(Instruction.Create(OpCodes.Ldloc_1));
             args.Add(Instruction.Create(OpCodes.Ldc_I4_0));
-            args.Add(Instruction.Create(OpCodes.Ldsfld, new FieldReference("Terraria.Netplay::serverSock", TerrariaServer.MainModule.Import(typeof(Terraria.ServerSock[])))));
-            args.Add(Instruction.Create(OpCodes.Ldarg_0));
-            args.Add(Instruction.Create(OpCodes.Ldfld, TerrariaServer.MainModule.Import(typeof(System.Int32)))); //TEST
-            args.Add(Instruction.Create(OpCodes.Ldelem_Ref));
-            args.Add(Instruction.Create(OpCodes.Ldfld, TerrariaServer.MainModule.Import(typeof(System.String)))); //TEST
-            args.Add(Instruction.Create(OpCodes.Stelem_Ref));
+            args.Add(Instruction.Create(OpCodes.Ldsfld, new FieldReference("Terraria.Netplay::serverSock", ServerSock)));//new TypeReference("Terraria", "ServerSock", TerrariaServer.MainModule, new Scope()))));
             args.Add(Instruction.Create(OpCodes.Ldloc_0));
+            args.Add(Instruction.Create(OpCodes.Ldelem_Ref));
+            args.Add(Instruction.Create(OpCodes.Ldfld, new FieldReference("Terraria.ServerSock::name", TerrariaServer.MainModule.Import(typeof(System.String)))));
+            args.Add(Instruction.Create(OpCodes.Stelem_Ref));
+            args.Add(Instruction.Create(OpCodes.Ldloc_1));
             args.Add(Instruction.Create(OpCodes.Ldc_I4_1));
-            args.Add(Instruction.Create(OpCodes.Ldsfld, new FieldReference("Terraria.Netplay::serverSock", TerrariaServer.MainModule.Import(typeof(Terraria.ServerSock[])))));
-            args.Add(Instruction.Create(OpCodes.Ldarg_0));
-            args.Add(Instruction.Create(OpCodes.Ldfld, TerrariaServer.MainModule.Import(typeof(System.Int32)))); //TEST
-            args.Add(Instruction.Create(OpCodes.Ldelem_Ref));
-            args.Add(Instruction.Create(OpCodes.Ldfld, TerrariaServer.MainModule.Import(typeof(System.Net.Sockets.TcpClient)))); //TEST
-            args.Add(Instruction.Create(OpCodes.Callvirt, TerrariaServer.MainModule.Import(typeof(System.Net.Sockets.Socket)))); //TEST
-            args.Add(Instruction.Create(OpCodes.Callvirt, TerrariaServer.MainModule.Import(typeof(System.Net.EndPoint)))); //TEST
-            args.Add(Instruction.Create(OpCodes.Stelem_Ref));
+            args.Add(Instruction.Create(OpCodes.Ldsfld, new FieldReference("Terraria.Netplay::serverSock", ServerSock)));//new ArrayType(TerrariaServer.MainModule.GetType("Terraria.ServerSock").Resolve()))));//new ArrayType(TerrariaServer.MainModule.GetType("Terraria.ServerSock")))));
             args.Add(Instruction.Create(OpCodes.Ldloc_0));
+            args.Add(Instruction.Create(OpCodes.Ldelem_Ref));
+            args.Add(Instruction.Create(OpCodes.Ldfld, new FieldReference("Terraria.ServerSock::tcpClient", TerrariaServer.MainModule.Import(typeof(System.Net.Sockets.TcpClient)))));
+            args.Add(Instruction.Create(OpCodes.Callvirt, new MethodReference("System.Net.Sockets.TcpClient::get_Client()", TerrariaServer.MainModule.Import(typeof(System.Net.Sockets.Socket)))));
+            args.Add(Instruction.Create(OpCodes.Callvirt, new MethodReference("System.Net.Sockets.Socket::get_RemoteEndPoint()", TerrariaServer.MainModule.Import(typeof(System.Net.EndPoint)))));
+            args.Add(Instruction.Create(OpCodes.Stelem_Ref));
+            args.Add(Instruction.Create(OpCodes.Ldloc_1));
             
             AddHook(ref ServerLoop, 605, 1, args.ToArray());
         }

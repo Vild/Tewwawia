@@ -25,10 +25,11 @@ namespace ExtractIL
 
 			}
 		}
-		int k = 1;
+
 		void damt()
 		{
-			Plugin.ThrowEvent(1, Netplay.serverSock[k].name, Netplay.serverSock[k].tcpClient.Client.RemoteEndPoint);
+			for (int k = 0; k < 1; k++ )
+				Plugin.ThrowEvent(999, Netplay.serverSock[k].name, Netplay.serverSock[k].tcpClient.Client.RemoteEndPoint);
 		}
 
 		void b(string player, string a)
